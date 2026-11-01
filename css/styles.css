@@ -482,3 +482,4 @@ input, textarea { caret-color: var(--pink-ink); }
 .simple-footer { background: var(--ink); color: var(--light-soft); padding-block: 28px; font-size: var(--t-s); }
 .simple-footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 .simple-footer a { color: var(--light); }
+.not-found .prose a:not(.btn) { color: var(--ink); }
