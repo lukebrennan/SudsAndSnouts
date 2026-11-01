@@ -82,7 +82,7 @@
     var h = HOURS[now.dow];
     if (h && now.minutes >= toMin(h[0]) && now.minutes < toMin(h[1])) {
       el.classList.add('is-open');
-      text.textContent = 'Open now in Naas until ' + prettyTime(h[1]);
+      text.textContent = 'Open now, until ' + prettyTime(h[1]) + ' today';
       return;
     }
     // Find next opening
@@ -93,7 +93,7 @@
       if (i === 0 && now.minutes >= toMin(hh[0])) continue;
       var when = i === 0 ? 'today' : i === 1 ? 'tomorrow' : DAY_NAMES[dow];
       el.classList.add('is-closed');
-      text.textContent = 'Closed now · Opens ' + when + ' at ' + prettyTime(hh[0]);
+      text.textContent = 'Closed now. Opens ' + when + ' at ' + prettyTime(hh[0]);
       return;
     }
   }
@@ -105,7 +105,7 @@
     var hero = $('.hero');
     var book = $('#book');
     if (!header) return;
-    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
+    var onScroll = function () { header.classList.toggle('is-scrolled', !hero || hero.getBoundingClientRect().bottom <= header.offsetHeight); };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -168,18 +168,104 @@
     if (mq.addEventListener) mq.addEventListener('change', onChange); else if (mq.addListener) mq.addListener(onChange);
   }
 
-  // ---- Reveal on scroll ------------------------------------------------------------
+  // ---- Section entrances: heading, then text, then pictures, 70ms apart ---------
+  var REVEAL_SEL = 'h2, .strong-p, .intro-copy > p, figure, .index-col, .index-panel, .picker, .price-sentence, .price-foot, .table-wrap, .dg-text, .strip li, .quiet-copy > p, .quiet-copy .btn-row, .book-head, .book-step, .book-submit, .summary-card, .policies, .faq-item, .contact-email, .contact-foot > div';
   function initReveals() {
-    var groups = $all('[data-reveal]');
-    if (reduceMotion || !('IntersectionObserver' in window)) { groups.forEach(function (g) { g.classList.add('is-in'); }); return; }
+    var sections = $all('main > section:not(.hero)');
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    sections.forEach(function (sec) {
+      var picked = [];
+      $all(REVEAL_SEL, sec).forEach(function (el) {
+        for (var i = 0; i < picked.length; i++) { if (picked[i].contains(el)) return; }
+        picked.push(el);
+      });
+      picked.forEach(function (el, i) { el.classList.add('rv'); el.style.setProperty('--d', Math.min(i * 70, 420) + 'ms'); });
+    });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
         e.target.classList.add('is-in');
         io.unobserve(e.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
-    groups.forEach(function (g) { io.observe(g); });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    sections.forEach(function (s) { io.observe(s); });
+    // Anything the visitor jumps past still shows up
+    window.addEventListener('hashchange', function () { sections.forEach(function (s) { if (s.getBoundingClientRect().top < window.innerHeight) s.classList.add('is-in'); }); });
+  }
+
+  // ---- Grooms index: hover or tap a name to read about it -----------------------
+  function initIndex() {
+    var root = $('[data-index]');
+    if (!root) return;
+    var items = $all('[data-index-item]', root);
+    var panel = $('[data-index-panel]', root);
+    function show(btn) {
+      items.forEach(function (b) { b.setAttribute('aria-expanded', b === btn ? 'true' : 'false'); });
+      var desc = btn.nextElementSibling;
+      panel.innerHTML = '';
+      var name = document.createElement('p'); name.className = 'panel-name'; name.textContent = btn.textContent;
+      var body = document.createElement('p'); body.innerHTML = desc ? desc.innerHTML : '';
+      panel.appendChild(name); panel.appendChild(body);
+    }
+    var wide = matchMedia('(min-width: 1000px)');
+    items.forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!wide.matches && b.getAttribute('aria-expanded') === 'true') { b.setAttribute('aria-expanded', 'false'); return; }
+        show(b);
+      });
+      b.addEventListener('mouseenter', function () { if (wide.matches) show(b); });
+      b.addEventListener('focus', function () { if (wide.matches) show(b); });
+    });
+    // Footer links to a groom open it
+    $all('a[href^="#service-"]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var li = document.getElementById(a.getAttribute('href').slice(1));
+        var b = li && $('[data-index-item]', li);
+        if (b) show(b);
+      });
+    });
+    show(items[0]);
+  }
+
+  // ---- Price sentence: pick a size and a groom, read the real price ---------------
+  var GROOM_NAMES = { full: 'Full Groom', mini: 'Mini Groom', wash: 'Wash & Fluff', puppy: 'Puppy Splash' };
+  var GROOM_NOTES = {
+    full: 'Wash, blow-dry, full clip and scissor, nails, ears, a bandana and a Snout Shot, in about 2 to 3 hours.',
+    mini: 'Everything in a Wash & Fluff plus a face, feet and bum trim, in about 1.5 hours.',
+    wash: 'Double shampoo, warm blow-dry and brush out, nails, ears and a hygiene tidy, in about 1 to 1.5 hours.',
+    puppy: 'A gentle bath and dry with a face, feet and nail tidy for pups under 6 months, in about 45 minutes.'
+  };
+  var SIZE_WORDS = { small: 'small', medium: 'medium', large: 'large', xl: 'extra large' };
+  function initPricePicker() {
+    var form = $('[data-price-picker]');
+    var out = $('[data-price-sentence]');
+    var note = $('[data-price-note]');
+    var book = $('[data-price-book]');
+    if (!form || !out) return;
+    function update() {
+      var size = $('input[name="pp-size"]:checked', form).value;
+      var groom = $('input[name="pp-groom"]:checked', form).value;
+      var price = PRICES[groom][size];
+      var from = (size === 'xl' && groom !== 'puppy') ? 'from ' : '';
+      var article = SIZE_WORDS[size] === 'extra large' ? 'An ' : 'A ';
+      out.innerHTML = '';
+      out.appendChild(document.createTextNode(article + SIZE_WORDS[size] + ' dog\u2019s ' + GROOM_NAMES[groom] + ' is ' + from));
+      var blk = document.createElement('span'); blk.className = 'price-block'; blk.textContent = '\u20ac' + price;
+      out.appendChild(blk);
+      note.textContent = GROOM_NOTES[groom] + ' Rebook every 4 to 6 weeks and the Suds Club takes 10% off, plus a free extra each visit.';
+    }
+    form.addEventListener('change', update);
+    book.addEventListener('click', function () {
+      var bf = $('[data-booking-form]');
+      if (!bf) return;
+      var size = $('input[name="pp-size"]:checked', form).value;
+      var groom = $('input[name="pp-groom"]:checked', form).value;
+      var s = $('input[name="service"][value="' + groom + '"]', bf);
+      var z = $('input[name="size"][value="' + size + '"]', bf);
+      if (s) { s.checked = true; s.dispatchEvent(new Event('change', { bubbles: true })); }
+      if (z) { z.checked = true; z.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
+    update();
   }
 
   // ---- FAQ: one open at a time keeps the list tidy ---------------------------------
@@ -500,6 +586,8 @@
   initHeader();
   initMenu();
   initReveals();
+  initIndex();
+  initPricePicker();
   initFaq();
   initBooking();
 })();
