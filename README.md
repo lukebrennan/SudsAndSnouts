@@ -7,22 +7,6 @@ A plain static site (HTML, CSS and a little JavaScript), hosted on GitHub Pages 
 - Phone: 087 500 4500 (`tel:+353875004500`)
 - Email: hello@sudsandsnouts.com
 
-## Design
-
-The site follows the "Snout Shot studio" direction, documented in `DESIGN.md` (colours, type, layout, motion). Product facts the design must respect are in `PRODUCT.md`.
-
-### Going back to the previous design
-
-The previous design is saved on the `design-v1` branch. To restore it:
-
-```bash
-git checkout main
-git reset --hard origin/design-v1
-git push --force-with-lease origin main
-```
-
-Or browse it on GitHub under the `design-v1` branch.
-
 ## Structure
 
 | File | What it is |
@@ -68,7 +52,7 @@ The site currently lives at `https://lukebrennan.github.io/SudsAndSnouts/`. When
 
 ## Photo credits
 
-Photos from Unsplash (Unsplash License): Karsten Winegeart, Hayffield L, Brooke Cagle, Edson Torres, Reba Spike, benjamin lehman, Nick Fewings, Roberto Nickson, Anthony Duran, Ayla Verschueren and Grace Brauteseth. The hero dog is a cut-out of the pink-backdrop photo.
+Photos from Unsplash (Unsplash License): Karsten Winegeart, Hayffield L, Brooke Cagle, Edson Torres, Reba Spike, benjamin lehman, Nick Fewings, Roberto Nickson, Anthony Duran, Ayla Verschueren and Grace Brauteseth.
 
 ## Preview locally
 
