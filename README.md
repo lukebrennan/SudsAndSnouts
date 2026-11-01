@@ -1,10 +1,10 @@
 # Suds & Snouts Dog Grooming
 
-Website for Suds & Snouts, a one-to-one dog grooming salon in Naas, Co. Kildare.
+Website for Suds & Snouts, a one-to-one dog grooming salon in Liverpool.
 
 A plain static site (HTML, CSS and a little JavaScript), hosted on GitHub Pages from the `main` branch. No build step.
 
-- Phone: 087 500 4500 (`tel:+353875004500`)
+- Phone: 0151 496 0123 (`tel:+441514960123`)
 - Email: hello@sudsandsnouts.com
 
 ## Structure
@@ -25,7 +25,7 @@ The booking form validates everything, shows a live price estimate and a confirm
 
 ```json
 {
-  "service": "Full Groom", "size": "Medium", "addons": ["Teeth brushing"], "estimatedPrice": "€66",
+  "service": "Full Groom", "size": "Medium", "addons": ["Teeth brushing"], "estimatedPrice": "£66",
   "date": "2026-11-17", "time": "10:00", "quietHour": false,
   "dogName": "Biscuit", "breed": "Cockapoo", "ownerName": "Aoife Byrne",
   "phone": "087 123 4567", "email": "aoife@example.ie", "notes": "", "newClient": true,

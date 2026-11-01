@@ -1,38 +1,38 @@
 # Suds & Snouts Dog Grooming
 
-> One-to-one, appointment-only dog grooming salon on the high street in Naas, Co. Kildare, Ireland. One dog in the salon at a time, no cages, and a Quiet Hour for nervous, elderly or reactive dogs.
+> One-to-one, appointment-only dog grooming salon in Liverpool, England. There is no shopfront; the address is shared when you book. One dog in the salon at a time, no cages, and a Quiet Hour for nervous, elderly or reactive dogs.
 
 - Website: https://lukebrennan.github.io/SudsAndSnouts/
-- Phone: 087 500 4500 (+353 87 500 4500)
+- Phone: 0151 496 0123 (+44 151 496 0123)
 - Email: hello@sudsandsnouts.com
-- Location: Naas, Co. Kildare, Ireland
-- Areas served: Naas, Sallins, Kill, Johnstown, Clane, Newbridge and County Kildare
+- Location: Liverpool, Merseyside, England (address shared on booking)
+- Areas served: Liverpool and Merseyside
 - Booking: online at https://lukebrennan.github.io/SudsAndSnouts/#book or by phone
 
 ## Opening hours
 
 - Monday: closed
 - Tuesday, Wednesday, Friday: 8:30 to 17:30
-- Thursday: 8:30 to 19:30 (walk-in nail clips 17:30 to 19:30, €10)
+- Thursday: 8:30 to 19:30 (walk-in nail clips 17:30 to 19:30, £10)
 - Saturday: 9:00 to 16:00
 - Sunday: closed
 
-## Grooms and prices (euro, by dog size: small up to 10kg / medium 10 to 20kg / large 20 to 35kg / XL over 35kg)
+## Grooms and prices (GBP, by dog size: small up to 10kg / medium 10 to 20kg / large 20 to 35kg / XL over 35kg)
 
-- Puppy Splash (pups under 6 months, about 45 minutes): €30 / €30 / €35 / €35
-- Wash & Fluff (bath, blow-dry, brush out, nails, ears, hygiene tidy, 1 to 1.5 hours): €35 / €45 / €55 / from €65
-- Mini Groom (Wash & Fluff plus face, feet and bum trim, about 1.5 hours): €42 / €50 / €60 / from €70
-- Full Groom (Wash & Fluff plus full clip and scissor or teddy trim, 2 to 3 hours): €50 / €60 / €75 / from €90
-- Hand stripping (terriers and wire coats): €40 per hour
+- Puppy Splash (pups under 6 months, about 45 minutes): £30 / £30 / £35 / £35
+- Wash & Fluff (bath, blow-dry, brush out, nails, ears, hygiene tidy, 1 to 1.5 hours): £35 / £45 / £55 / from £65
+- Mini Groom (Wash & Fluff plus face, feet and bum trim, about 1.5 hours): £42 / £50 / £60 / from £70
+- Full Groom (Wash & Fluff plus full clip and scissor or teddy trim, 2 to 3 hours): £50 / £60 / £75 / from £90
+- Hand stripping (terriers and wire coats): £40 per hour
 
-Extras: teeth brushing €6, blueberry facial €5, pawdicure €8, de-shed €12 to €20, de-matting €10 per 15 minutes (always agreed first), Pup Party bow or nail varnish €5.
+Extras: teeth brushing £6, blueberry facial £5, pawdicure £8, de-shed £12 to £20, de-matting £10 per 15 minutes (always agreed first), Pup Party bow or nail varnish £5.
 
 ## Good to know
 
 - Quiet Hour: the first appointment every Tuesday and Wednesday is kept for nervous, elderly or reactive dogs. If a dog is too stressed the groom stops and owners only pay for work done.
 - Suds Club: rebook every 4 to 6 weeks for 10% off every groom plus one free add-on each visit.
-- Gift vouchers from €25.
-- New clients pay a €10 deposit, taken off the final price. 48 hours' notice is needed to cancel.
+- Gift vouchers from £25.
+- New clients pay a £10 deposit, taken off the final price. 48 hours' notice is needed to cancel.
 - Dogs must be vaccinated and flea-free.
 - Breeds groomed often: cockapoos, cavapoos, labradoodles, goldendoodles, shih tzus, bichons, terriers and puppies.
 

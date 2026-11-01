@@ -4,10 +4,10 @@
 
   // ---- Salon settings: edit in one place -------------------------------------
   var SITE = {
-    phoneDisplay: '087 500 4500',
-    phoneTel: '+353875004500',
+    phoneDisplay: '0151 496 0123',
+    phoneTel: '+441514960123',
     email: 'hello@sudsandsnouts.com',
-    timeZone: 'Europe/Dublin',
+    timeZone: 'Europe/London',
     // To send bookings somewhere (Formspree, Make, Zapier, your own API...),
     // put the URL here. Bookings are POSTed as JSON. See README.md.
     bookingEndpoint: ''
@@ -38,7 +38,7 @@
     wash:  { small: 35, medium: 45, large: 55, xl: 65 },
     mini:  { small: 42, medium: 50, large: 60, xl: 70 },
     full:  { small: 50, medium: 60, large: 75, xl: 90 },
-    strip: null // €40 per hour
+    strip: null // £40 per hour
   };
 
   var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -50,8 +50,8 @@
   function $all(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
   var reduceMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---- Time in Ireland ---------------------------------------------------------
-  function dublinNow() {
+  // ---- Time in the UK ---------------------------------------------------------
+  function localNow() {
     var d = new Date();
     try {
       var parts = new Intl.DateTimeFormat('en-GB', { timeZone: SITE.timeZone, year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(d);
@@ -73,7 +73,7 @@
   // ---- Open now status + today's hours -----------------------------------------
   function initOpenStatus() {
     var el = $('[data-open-status]');
-    var now = dublinNow();
+    var now = localNow();
     $all('[data-hours] [data-day]').forEach(function (row) {
       if (+row.getAttribute('data-day') === now.dow) row.classList.add('is-today');
     });
@@ -82,7 +82,7 @@
     var h = HOURS[now.dow];
     if (h && now.minutes >= toMin(h[0]) && now.minutes < toMin(h[1])) {
       el.classList.add('is-open');
-      text.textContent = 'Open now in Naas until ' + prettyTime(h[1]);
+      text.textContent = 'Open now in Liverpool until ' + prettyTime(h[1]);
       return;
     }
     // Find next opening
@@ -216,7 +216,7 @@
     var page = 0;
     var selected = { date: null, time: null };
 
-    var now = dublinNow();
+    var now = localNow();
     // Open days for the next 6 weeks, starting tomorrow
     function openDays() {
       var out = [];
@@ -286,7 +286,7 @@
       });
     }
 
-    function money(n) { return '€' + n; }
+    function money(n) { return '£' + n; }
 
     function readState() {
       var service = $('input[name="service"]:checked', form);
@@ -295,7 +295,7 @@
       var addonTotal = addons.reduce(function (s, a) { return s + (+a.getAttribute('data-price')); }, 0);
       var base = PRICES[service.value];
       var priceText;
-      if (!base) priceText = '€40/hr' + (addonTotal ? ' + ' + money(addonTotal) : '');
+      if (!base) priceText = '£40/hr' + (addonTotal ? ' + ' + money(addonTotal) : '');
       else priceText = (size.value === 'xl' && service.value !== 'puppy' ? 'from ' : '') + money(base[size.value] + addonTotal);
       var when = 'Pick a day and time';
       if (selected.date) {
